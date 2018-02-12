@@ -3,17 +3,8 @@
 #include <list>
 #include <sstream>
 
-class ent{
-public:
-    ent(){}
-    sf::Texture texture;
-    sf::Sprite sprite;
-    float speed = 2;
-    void draw(sf::RenderWindow &window){
-        sprite.setScale(sf::Vector2f(1,1));
-        window.draw(sprite);
-    }
-};
+
+
 
 namespace patch
 {
@@ -25,6 +16,17 @@ namespace patch
     }
 }
 
+class ent{
+public:
+    ent(){}
+    sf::Texture texture;
+    sf::Sprite sprite;
+    float speed = 2;
+    void draw(sf::RenderWindow &window){
+        sprite.setScale(sf::Vector2f(1,1));
+        window.draw(sprite);
+    }
+};
 class pad : public ent{
     public:
         pad(sf::Texture &_texture,int xpos,int ypos){
@@ -66,7 +68,6 @@ class pad : public ent{
         if(moving){
             movepad(direction,0);
         }
-
     }
 
     bool isplayer=true;
@@ -197,6 +198,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT),"pong");
     window.setFramerateLimit(50);
 
+
 //Resources
     sf::Texture pad_texture;
     sf::Texture pad_texture2;
@@ -214,17 +216,14 @@ int main()
     score.setPosition(sf::Vector2f(WIDTH/2 -30,5));
     score.setCharacterSize(35);
 
-    sf::Text score2;
-    score2.setPosition(sf::Vector2f(WIDTH/2 - 30,5));
-
     pad_texture.loadFromFile("DATA/pad.png");
     pad_texture2.loadFromFile("DATA/e_pad.png");
     ball_texture.loadFromFile("DATA/ball.png");
     background.loadFromFile("DATA/bg.png");
 
 //Player, Enemy
-    pad player_pad(pad_texture,50,50);
-    pad enemy_pad(pad_texture2,window.getSize().x-50-enemy_pad.sprite.getGlobalBounds().width,50);
+    pad player_pad(pad_texture,50,70);
+    pad enemy_pad(pad_texture2,WIDTH-50-12,70);
 
     enemy_pad.isplayer=false;
 
@@ -265,6 +264,7 @@ int main()
         }
 
 
+
         //Trails Spawn
         if(ball1.trail_counter==0){
             trail* trl = new trail();
@@ -286,16 +286,16 @@ int main()
 
         for(trail* t : trails){ t->draw(window); }
 
+        ball1.draw(window);
+        ball1.update(WIDTH,HEIGHT,points,e_points);
+        ball1.check_collision(player_pad.sprite,player_pad.isplayer);
+        ball1.check_collision(enemy_pad.sprite,enemy_pad.isplayer);
+
         player_pad.draw(window);
         player_pad.update();
 
         enemy_pad.draw(window);
         enemy_pad.movepad(9,ball1.sprite.getPosition().y);
-
-        ball1.draw(window);
-        ball1.update(WIDTH,HEIGHT,points,e_points);
-        ball1.check_collision(player_pad.sprite,player_pad.isplayer);
-        ball1.check_collision(enemy_pad.sprite,enemy_pad.isplayer);
 
         std::string st1 = patch::to_string(points);
         std::string st2 = patch::to_string(e_points);

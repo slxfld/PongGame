@@ -4,3 +4,9 @@
 	<SFML/Graphics.hpp>
 	<list>
 
+1518478675 source:b:\data\programmierung\git\pong\ponggame\main.cpp
+	<iostream>
+	<SFML/Graphics.hpp>
+	<list>
+	<sstream>
+
