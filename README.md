@@ -6,7 +6,7 @@ a Pong Clone written in C++14 and the SFML framework. </br>
 
 ![alt text](http://url/to/img.png)
 
-#License
+# License
 This Project uses the MIT License.
 
 # Gameplay
