@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1518471390 source:b:\data\programmierung\c++\pong\main.cpp
+	<iostream>
+	<SFML/Graphics.hpp>
+	<list>
+
