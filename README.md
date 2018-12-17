@@ -1,5 +1,5 @@
 # PongGame
-Pong made in C++ / SFML
+Pong clone in C++
 
 # Description
 a Pong Clone written in C++14 using the SFML framework. </br>
