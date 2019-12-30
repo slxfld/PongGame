@@ -1,4 +1,3 @@
-# PongGame
 Pong made in C++ using SFML
 
 # Description
@@ -14,4 +13,4 @@ The player controls the left paddle using the Up and Down Arrowkeys. </br>
 The right paddle ist controlled by the computer.</br>
 
 # Author
-**2018 Simon Lixenfeld**
+*2018 Simon Lixenfeld*
