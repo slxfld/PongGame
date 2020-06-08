@@ -22,33 +22,41 @@ public:
     sf::Texture texture;
     sf::Sprite sprite;
     float speed = 2;
-    void draw(sf::RenderWindow &window){
+    void draw(sf::RenderWindow &window)
+	{
         sprite.setScale(sf::Vector2f(1,1));
         window.draw(sprite);
     }
 };
 class pad : public ent{
     public:
-        pad(sf::Texture &_texture,int xpos,int ypos){
+        pad(sf::Texture &_texture,int xpos,int ypos)
+		{
             texture = _texture;
             sprite.setTexture(texture);
             sprite.setPosition(sf::Vector2f(xpos,ypos));
         }
-    void movepad(int Dir,int bally){
-
-        if(sprite.getPosition().y < 10){
+    void movepad(int Dir,int bally)
+	{
+        if(sprite.getPosition().y < 10)
+		{
             sprite.move(sf::Vector2f(0,speed));
         }
-        if(sprite.getPosition().y + sprite.getGlobalBounds().height > 200-10){
+		
+        if(sprite.getPosition().y + sprite.getGlobalBounds().height > 200-10)
+		{
             sprite.move(sf::Vector2f(0,-speed));
         }
 
 
-        if(isplayer){
-            if(Dir==1){
+        if(isplayer)
+		{
+            if(Dir==1)
+			{
                 sprite.move(sf::Vector2f(0,-speed));
             }
-            if(Dir==2){
+            else if(Dir==2)
+			{
                 sprite.move(sf::Vector2f(0,speed));
             }
         }
@@ -58,14 +66,16 @@ class pad : public ent{
             {
                 sprite.move(sf::Vector2f(0,speed));
             }
-            if(bally < (sprite.getPosition().y + sprite.getGlobalBounds().height/2) )
+            else if(bally < (sprite.getPosition().y + sprite.getGlobalBounds().height/2) )
             {
                 sprite.move(sf::Vector2f(0,-speed));
             }
         }
     }
-    void update(){
-        if(moving){
+    void update()
+	{
+        if(moving)
+		{
             movepad(direction,0);
         }
     }
@@ -78,9 +88,11 @@ class pad : public ent{
 
 
 
-class ball : public ent{
+class ball : public ent
+{
     public:
-        ball(sf::Texture &_texture,int xpos,int ypos){
+        ball(sf::Texture &_texture,int xpos,int ypos)
+		{
             texture = _texture;
             sprite.setTexture(texture);
             sprite.setPosition(sf::Vector2f(xpos,ypos));
@@ -88,64 +100,82 @@ class ball : public ent{
             starty = ypos;
         }
 
-    void update(int width, int height,int &points,int &e_points){
+    void update(int width, int height,int &points,int &e_points)
+	{
         sprite.move(sf::Vector2f(speed,yspeed));
-        if(counter>0){counter--;}
+        if(counter>0) {counter--;}
 
-        if(sprite.getPosition().y + sprite.getGlobalBounds().height > height - 10||sprite.getPosition().y < 10){
+        if(sprite.getPosition().y + sprite.getGlobalBounds().height > height - 10||sprite.getPosition().y < 10)
+		{
             yspeed = -yspeed;
         }
-        if(sprite.getPosition().y + sprite.getGlobalBounds().height > height - 10){
+        if(sprite.getPosition().y + sprite.getGlobalBounds().height > height - 10)
+		{
                 sprite.move(sf::Vector2f(0,-2));
         }
 
-        if(sprite.getPosition().x > width){
-            points++; std::cout << "Player +1\n";
+        if(sprite.getPosition().x > width)
+		{
+            points++; 
+			std::cout << "Player +1\n";
             sprite.setPosition(sf::Vector2f(startx,starty));
             yspeed = speed;
         }
-        else if(sprite.getPosition().x < 0){
-            e_points++; std::cout << "Computer +1\n";
+        else if(sprite.getPosition().x < 0)
+		{
+            e_points++; 
+			std::cout << "Computer +1\n";
             sprite.setPosition(sf::Vector2f(startx,starty));
             yspeed = speed;
         }
 
-        if(trail_counter>0){trail_counter--;}
-        if(trail_counter==-1){trail_counter=10;}
+        if(trail_counter>0) {trail_counter--;}
+        if(trail_counter==-1) {trail_counter=10;}
 
     }
-        double fRand(double fMin, double fMax){
-            double f = (double)rand() / RAND_MAX;
-            return fMin + f * (fMax - fMin);
-        }
-    void check_collision(sf::Sprite c_sprite,bool isplayer){
+	
+	double fRand(double fMin, double fMax)
+	{
+		double f = (double)rand() / RAND_MAX;
+		return fMin + f * (fMax - fMin);
+	}
+	
+    void check_collision(sf::Sprite c_sprite,bool isplayer)
+	{
         bool stop = false;
-        if(counter==0){
+        if(counter==0)
+		{
             if(!isplayer)
             {
                 if(sprite.getPosition().x+sprite.getGlobalBounds().width > c_sprite.getPosition().x+5
-                   &&sprite.getPosition().y+sprite.getGlobalBounds().height>c_sprite.getPosition().y){
+                   &&sprite.getPosition().y+sprite.getGlobalBounds().height>c_sprite.getPosition().y)
+				{
                     stop = true;
                 }
                 if(sprite.getPosition().x+sprite.getGlobalBounds().width > c_sprite.getPosition().x+5
-                   &&sprite.getPosition().y<c_sprite.getPosition().y+c_sprite.getGlobalBounds().height){
+                   &&sprite.getPosition().y<c_sprite.getPosition().y+c_sprite.getGlobalBounds().height)
+				{
                     stop = true;
                 }
             }
-            else{
+            else
+			{
                 if(sprite.getPosition().x < c_sprite.getPosition().x +c_sprite.getGlobalBounds().width-5
-                   &&sprite.getPosition().y+sprite.getGlobalBounds().height>c_sprite.getPosition().y){
+                   &&sprite.getPosition().y+sprite.getGlobalBounds().height>c_sprite.getPosition().y)
+				{
                     stop = true;
                 }
                 if(sprite.getPosition().x < c_sprite.getPosition().x +c_sprite.getGlobalBounds().width-5
-                   &&sprite.getPosition().y<c_sprite.getPosition().y+c_sprite.getGlobalBounds().height){
+                   &&sprite.getPosition().y<c_sprite.getPosition().y+c_sprite.getGlobalBounds().height)
+				{
                     stop = true;
                 }
             }
 
-
-            if(stop==false){
-                if(sprite.getGlobalBounds().intersects(c_sprite.getGlobalBounds())){
+            if(stop==false)
+			{
+                if(sprite.getGlobalBounds().intersects(c_sprite.getGlobalBounds()))
+				{
                     speed = -speed;
                     srand(time(NULL));
                     double randnum = rand() % 90;
@@ -165,18 +195,20 @@ class ball : public ent{
 };
 
 
-class trail{
+class trail
+{
 public:
     trail(){ }
 
-    void draw(sf::RenderWindow &window){
+    void draw(sf::RenderWindow &window)
+	{
         sf::RectangleShape rect(sf::Vector2f(7,7));
         rect.setPosition(pos);
         rect.setFillColor(sf::Color(0,255,0,20));
         window.draw(rect);
-
         rem_count++;
-        if(rem_count>=20){
+        if(rem_count>=20)
+		{
             remove_ = true;
         }
     }
@@ -317,18 +349,18 @@ const char data_ball[] =
 
 
 
-//Resources
+// textures
     sf::Texture pad_texture;
     sf::Texture pad_texture2;
 
     sf::Texture ball_texture;
     sf::Texture background;
 
-//FONT
+// font
     sf::Font font;
     font.loadFromFile("DATA/FONT.ttf");
 
-//SCORE TEXT
+// score text
     sf::Text score;
     score.setFont(font);
     score.setPosition(sf::Vector2f(WIDTH/2 -30,5));
@@ -339,7 +371,6 @@ const char data_ball[] =
     ball_texture.loadFromMemory(data_ball,sizeof(data_ball));
     background.loadFromMemory(data_bg,sizeof(data_bg));
 
-//Player, Enemy
     pad player_pad(pad_texture,50,70);
     pad enemy_pad(pad_texture2,WIDTH-50-12,70);
 
@@ -348,51 +379,58 @@ const char data_ball[] =
     sf::Sprite backg;
     backg.setTexture(background);
 
-//Ball
+// ball
     ball ball1(ball_texture,window.getSize().x/2,50);
 
 
-//Trail
+// trail
     std::list<trail*> trails;
 
     int points = 0;
     int e_points = 0;
 
-    while(window.isOpen()){
+    while(window.isOpen())
+	{
 
         sf::Event event;
 
-        while(window.pollEvent(event)){
+        while(window.pollEvent(event))
+		{
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
                 player_pad.direction = 1;
                 player_pad.moving = true;
             }
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
                 player_pad.direction = 2;
                 player_pad.moving = true;
             }
-            else{
+            else
+			{
                 player_pad.moving = false;
             }
 
-            if(event.type == sf::Event::Closed){
+            if(event.type == sf::Event::Closed)
+			{
                 window.close();
             }
         }
 
-
-
-        //Trails Spawn
-        if(ball1.trail_counter==0){
+        // trails spawn
+        if(ball1.trail_counter==0)
+		{
             trail* trl = new trail();
             trl->pos = (ball1.sprite.getPosition());
             trails.push_back(trl);
         }
 
-        //Trails Memory
-        for(trail* t : trails){
-            if(t->remove_==true){
+        // trails memory
+        for(trail* t : trails)
+		{
+            if(t->remove_==true)
+			{
                 trails.remove(t);
                 delete t; break;
             }
@@ -403,7 +441,7 @@ const char data_ball[] =
 //_______________________________________________________________
         window.draw(backg);
 
-        for(trail* t : trails){ t->draw(window); }
+        for(trail* t : trails) { t->draw(window); }
 
         ball1.draw(window);
         ball1.update(WIDTH,HEIGHT,points,e_points);
